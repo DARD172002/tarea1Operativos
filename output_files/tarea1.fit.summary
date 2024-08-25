@@ -1,4 +1,4 @@
-Fitter Status : Successful - Sat Aug 24 15:53:42 2024
+Fitter Status : Successful - Sat Aug 24 18:25:15 2024
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : tarea1
 Top-level Entity Name : tarea1
@@ -6,7 +6,7 @@ Family : Cyclone V
 Device : 5CSXFC6D6F31C6
 Timing Models : Final
 Logic utilization (in ALMs) : 1,412 / 41,910 ( 3 % )
-Total registers : 2121
+Total registers : 2125
 Total pins : 1 / 499 ( < 1 % )
 Total virtual pins : 0
 Total block memory bits : 95,552 / 5,662,720 ( 2 % )
