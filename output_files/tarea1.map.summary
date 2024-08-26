@@ -1,11 +1,11 @@
-Analysis & Synthesis Status : Successful - Sat Aug 24 18:21:58 2024
+Analysis & Synthesis Status : Successful - Sun Aug 25 18:05:54 2024
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : tarea1
 Top-level Entity Name : tarea1
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 2110
-Total pins : 1
+Total registers : 2220
+Total pins : 55
 Total virtual pins : 0
 Total block memory bits : 95,552
 Total DSP Blocks : 3

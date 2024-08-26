@@ -1,0 +1,78 @@
+#include "system.h" // Incluye las definiciones del sistema NIOS II
+#include "altera_avalon_pio_regs.h"
+#include "altera_avalon_timer_regs.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <time.h>
+
+// Definiciones de las direcciones base
+#define BUTTONS_BASE 0x00000000 // Dirección base de los botones
+#define SWITCHES_BASE 0x00000000 // Dirección base de los switches
+#define DISPLAY_BASE 0x00000000  // Dirección base de los displays
+#define TIMER_BASE 0x00000000    // Dirección base del temporizador
+
+// Variables globales
+int hora_actual = 0;
+int minuto_actual = 0;
+int hora_alarma = 0;
+int minuto_alarma = 0;
+int alarma_activada = 0;
+int modo_configuracion = 0; // 0: hora, 1: alarma
+
+
+int main(){
+
+	IOWR_ALTERA_AVALON_TIMER_CONTROL(TIMER_BASE, 0x07); // Configura el temporizador
+	IOWR_ALTERA_AVALON_TIMER_PERIODH(TIMER_BASE, 0x00);
+	IOWR_ALTERA_AVALON_TIMER_PERIODL(TIMER_BASE, 0xFFFF); // Establece el período
+	while (1) {
+        int botones = IORD_ALTERA_AVALON_PIO_DATA(BUTTONS_BASE);
+        int switches = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE);
+
+        // Manejo de botones
+        if (botones & 0x01) { // Button 1
+            hora_actual++;
+            if (hora_actual >= 24) {
+                hora_actual = 0;
+            }
+        }
+        if (botones & 0x02) { // Button 2
+            hora_actual--;
+            if (hora_actual < 0) {
+                hora_actual = 23;
+            }
+        }
+        if (botones & 0x04) { // Button 3
+            minuto_actual++;
+            if (minuto_actual >= 60) {
+                minuto_actual = 0;
+            }
+        }
+        if (botones & 0x08) { // Button 4
+            minuto_actual--;
+            if (minuto_actual < 0) {
+                minuto_actual = 59;
+            }
+        }
+
+        // Manejo de switches
+        if (switches & 0x01) { // Switch 1
+            alarma_activada = !alarma_activada;
+        }
+        if (switches & 0x02) { // Switch 2
+            modo_configuracion = !modo_configuracion;
+            if (modo_configuracion == 0) {
+                // Configuración de la hora actual
+                hora_actual = 0;
+                minuto_actual = 0;
+            } else {
+                // Configuración de la alarma
+                hora_alarma = 0;
+                minuto_alarma = 0;
+            }
+        }
+
+        return 0;
+
+}

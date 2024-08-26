@@ -4,7 +4,195 @@
 			"name" : "Top",
 			"pins" : [
 				{
+					"name" : "buzzer_external_export",
+					"strict" : false
+				},
+				{
+					"name" : "led_external_export[0]",
+					"strict" : false
+				},
+				{
+					"name" : "led_external_export[1]",
+					"strict" : false
+				},
+				{
+					"name" : "led_external_export[2]",
+					"strict" : false
+				},
+				{
+					"name" : "seg0_external_export[0]",
+					"strict" : false
+				},
+				{
+					"name" : "seg0_external_export[1]",
+					"strict" : false
+				},
+				{
+					"name" : "seg0_external_export[2]",
+					"strict" : false
+				},
+				{
+					"name" : "seg0_external_export[3]",
+					"strict" : false
+				},
+				{
+					"name" : "seg0_external_export[4]",
+					"strict" : false
+				},
+				{
+					"name" : "seg0_external_export[5]",
+					"strict" : false
+				},
+				{
+					"name" : "seg0_external_export[6]",
+					"strict" : false
+				},
+				{
+					"name" : "seg1_external_export[0]",
+					"strict" : false
+				},
+				{
+					"name" : "seg1_external_export[1]",
+					"strict" : false
+				},
+				{
+					"name" : "seg1_external_export[2]",
+					"strict" : false
+				},
+				{
+					"name" : "seg1_external_export[3]",
+					"strict" : false
+				},
+				{
+					"name" : "seg1_external_export[4]",
+					"strict" : false
+				},
+				{
+					"name" : "seg1_external_export[5]",
+					"strict" : false
+				},
+				{
+					"name" : "seg1_external_export[6]",
+					"strict" : false
+				},
+				{
+					"name" : "seg2_external_export[0]",
+					"strict" : false
+				},
+				{
+					"name" : "seg2_external_export[1]",
+					"strict" : false
+				},
+				{
+					"name" : "seg2_external_export[2]",
+					"strict" : false
+				},
+				{
+					"name" : "seg2_external_export[3]",
+					"strict" : false
+				},
+				{
+					"name" : "seg2_external_export[4]",
+					"strict" : false
+				},
+				{
+					"name" : "seg2_external_export[5]",
+					"strict" : false
+				},
+				{
+					"name" : "seg2_external_export[6]",
+					"strict" : false
+				},
+				{
+					"name" : "seg4_external_export[0]",
+					"strict" : false
+				},
+				{
+					"name" : "seg4_external_export[1]",
+					"strict" : false
+				},
+				{
+					"name" : "seg4_external_export[2]",
+					"strict" : false
+				},
+				{
+					"name" : "seg4_external_export[3]",
+					"strict" : false
+				},
+				{
+					"name" : "seg4_external_export[4]",
+					"strict" : false
+				},
+				{
+					"name" : "seg4_external_export[5]",
+					"strict" : false
+				},
+				{
+					"name" : "seg4_external_export[6]",
+					"strict" : false
+				},
+				{
+					"name" : "seg5_external_export[0]",
+					"strict" : false
+				},
+				{
+					"name" : "seg5_external_export[1]",
+					"strict" : false
+				},
+				{
+					"name" : "seg5_external_export[2]",
+					"strict" : false
+				},
+				{
+					"name" : "seg5_external_export[3]",
+					"strict" : false
+				},
+				{
+					"name" : "seg5_external_export[4]",
+					"strict" : false
+				},
+				{
+					"name" : "seg5_external_export[5]",
+					"strict" : false
+				},
+				{
+					"name" : "seg5_external_export[6]",
+					"strict" : false
+				},
+				{
 					"name" : "clk_clk",
+					"strict" : false
+				},
+				{
+					"name" : "botones_external_export[0]",
+					"strict" : false
+				},
+				{
+					"name" : "swtich_external_export[0]",
+					"strict" : false
+				},
+				{
+					"name" : "botones_external_export[1]",
+					"strict" : false
+				},
+				{
+					"name" : "swtich_external_export[1]",
+					"strict" : false
+				},
+				{
+					"name" : "botones_external_export[2]",
+					"strict" : false
+				},
+				{
+					"name" : "swtich_external_export[2]",
+					"strict" : false
+				},
+				{
+					"name" : "swtich_external_export[3]",
+					"strict" : false
+				},
+				{
+					"name" : "botones_external_export[3]",
 					"strict" : false
 				}
 			]

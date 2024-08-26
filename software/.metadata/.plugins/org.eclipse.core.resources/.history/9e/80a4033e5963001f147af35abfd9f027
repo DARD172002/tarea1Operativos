@@ -1,0 +1,20 @@
+#include "system.h"     // Archivo que contiene definiciones de hardware del sistema
+#include "io.h"         // Archivo para operaciones de I/O
+#include <alt_types.h>
+int main() {
+    while (1) {
+        // Leer el estado del switch
+        int switch_state = IORD(SWITCH_EXTERNAL_BASE, 0);
+
+        // Si el switch está encendido (asumiendo que está en el bit 0)
+        if (switch_state & 0x01) {
+            // Encender el 7 segmentos con un número o patrón específico
+            IOWR(SEGMENT_7_BASE, 0, 0b00111111);  // Ejemplo: enciende el número 0
+        } else {
+            // Apagar el 7 segmentos
+            IOWR(SEGMENT_7_BASE, 0, 0b00000000);  // Apaga todos los segmentos
+        }
+    }
+
+    return 0;
+}

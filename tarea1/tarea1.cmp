@@ -1,6 +1,16 @@
 	component tarea1 is
 		port (
-			clk_clk : in std_logic := 'X'  -- clk
+			botones_external_export : in  std_logic_vector(3 downto 0) := (others => 'X'); -- export
+			buzzer_external_export  : out std_logic;                                       -- export
+			clk_clk                 : in  std_logic                    := 'X';             -- clk
+			led_external_export     : out std_logic_vector(2 downto 0);                    -- export
+			seg0_external_export    : out std_logic_vector(6 downto 0);                    -- export
+			seg1_external_export    : out std_logic_vector(6 downto 0);                    -- export
+			seg2_external_export    : out std_logic_vector(6 downto 0);                    -- export
+			seg3_external_export    : out std_logic_vector(6 downto 0);                    -- export
+			seg4_external_export    : out std_logic_vector(6 downto 0);                    -- export
+			seg5_external_export    : out std_logic_vector(6 downto 0);                    -- export
+			swtich_external_export  : in  std_logic_vector(3 downto 0) := (others => 'X')  -- export
 		);
 	end component tarea1;
 

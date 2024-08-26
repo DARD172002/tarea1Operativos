@@ -1,0 +1,204 @@
+#include <stdio.h>
+#include <system.h>
+#include <io.h>
+#include <alt_types.h>
+#include <altera_avalon_timer_regs.h>
+#include <sys/alt_irq.h>
+#include "alt_irq.h"
+
+/******************************************************************************
+ * Definiciones de pines para los segmentos de 7 segmentos y para seleccionar
+ * los displays. Cada bit en la constante representa un segmento específico
+ * o la selección de un display en la matriz de 7 segmentos.
+ ******************************************************************************/
+#define SEG_A (1 << 0)  // Segmento A del display
+#define SEG_B (1 << 1)  // Segmento B del display
+#define SEG_C (1 << 2)  // Segmento C del display
+#define SEG_D (1 << 3)  // Segmento D del display
+#define SEG_E (1 << 4)  // Segmento E del display
+#define SEG_F (1 << 5)  // Segmento F del display
+#define SEG_G (1 << 6)  // Segmento G del display
+#define SEG_DP (1 << 7) // Punto decimal del display
+
+// Definiciones para seleccionar cada uno de los 6 displays
+#define DISPLAY1 (1 << 0) // Selección del Display 1
+#define DISPLAY2 (1 << 1) // Selección del Display 2
+#define DISPLAY3 (1 << 2) // Selección del Display 3
+#define DISPLAY4 (1 << 3) // Selección del Display 4
+#define DISPLAY5 (1 << 4) // Selección del Display 5
+#define DISPLAY6 (1 << 5) // Selección del Display 6
+
+/******************************************************************************
+ * Variables globales para almacenar la hora actual, la hora de la alarma,
+ * y el estado de la alarma.
+ ******************************************************************************/
+volatile int current_hour = 0;       // Hora actual
+volatile int current_minute = 0;     // Minuto actual
+volatile int alarm_hour = 6;         // Hora de la alarma
+volatile int alarm_minute = 30;      // Minuto de la alarma
+volatile int alarm_active = 0;       // Estado de la alarma (1 = activada, 0 = desactivada)
+volatile int alarm_triggered = 0;    // Estado de la alarma disparada (1 = disparada, 0 = no disparada)
+
+/******************************************************************************
+ * Función para manejar las interrupciones del temporizador.
+ * Esta función se llama automáticamente cada vez que el temporizador genera
+ * una interrupción.
+ ******************************************************************************/
+void timer_isr(void* context, alt_u32 id) {
+    static int second_counter = 0;  // Contador de segundos
+
+    // Incrementar el contador de segundos
+    second_counter++;
+    if (second_counter >= 60) {
+        second_counter = 0;
+
+        // Incrementar el minuto actual
+        current_minute++;
+        if (current_minute >= 60) {
+            current_minute = 0;
+            current_hour++;
+            if (current_hour >= 24) {
+                current_hour = 0;
+            }
+        }
+
+        // Verificar si se debe activar la alarma
+        if (alarm_active && current_hour == alarm_hour && current_minute == alarm_minute) {
+            alarm_triggered = 1;
+        }
+    }
+
+    // Limpiar la interrupción del temporizador
+    IOWR_ALTERA_AVALON_TIMER_STATUS(TIMER_BASE, 0);
+}
+
+/******************************************************************************
+ * Función para configurar el temporizador.
+ * Esta función establece el temporizador para que genere una interrupción
+ * cada segundo.
+ ******************************************************************************/
+void init_timer() {
+    // Registrar la función de interrupción del temporizador
+    alt_irq_register(TIMER_IRQ, NULL, timer_isr);
+
+    // Configurar el temporizador para generar una interrupción cada segundo
+    IOWR_ALTERA_AVALON_TIMER_CONTROL(TIMER_BASE,
+                                     ALTERA_AVALON_TIMER_CONTROL_ITO_MSK |
+                                     ALTERA_AVALON_TIMER_CONTROL_CONT_MSK |
+                                     ALTERA_AVALON_TIMER_CONTROL_START_MSK);
+    IOWR_ALTERA_AVALON_TIMER_PERIODL(TIMER_BASE, 0x4240); // Periodo bajo
+    IOWR_ALTERA_AVALON_TIMER_PERIODH(TIMER_BASE, 0xF);    // Periodo alto
+}
+
+/******************************************************************************
+ * Función para manejar los botones.
+ * Esta función lee el estado de los botones y ajusta la hora y los minutos
+ * en función de las pulsaciones de los botones.
+ ******************************************************************************/
+void handle_buttons() {
+    int buttons = IORD_ALTERA_AVALON_PIO_DATA(BUTTON_PIO_BASE);
+
+    // Aumentar la hora si se presiona el botón 1
+    if (buttons & 0x01) current_hour = (current_hour + 1) % 24;
+    // Disminuir la hora si se presiona el botón 2
+    if (buttons & 0x02) current_hour = (current_hour - 1 + 24) % 24;
+
+    // Aumentar los minutos si se presiona el botón 3
+    if (buttons & 0x04) current_minute = (current_minute + 1) % 60;
+    // Disminuir los minutos si se presiona el botón 4
+    if (buttons & 0x08) current_minute = (current_minute - 1 + 60) % 60;
+}
+
+/******************************************************************************
+ * Función para manejar los switches.
+ * Esta función lee el estado de los switches y ajusta la configuración
+ * de la alarma y la hora en función del estado de los switches.
+ ******************************************************************************/
+void handle_switches() {
+    int switches = IORD_ALTERA_AVALON_PIO_DATA(SWITCH_PIO_BASE);
+
+    // Encender o apagar la alarma si se acciona el switch 1
+    alarm_active = switches & 0x01;
+
+    // Cambiar entre la configuración de la hora y la alarma con el switch 2
+    if (switches & 0x02) {
+        // Configurar la alarma con los botones
+        handle_buttons();
+        alarm_hour = current_hour;
+        alarm_minute = current_minute;
+    } else {
+        // Configurar la hora con los botones
+        handle_buttons();
+    }
+
+    // Iniciar el conteo de minutos (controlado por el temporizador) con el switch 3
+    if (switches & 0x04) {
+        // El temporizador ya está configurado para contar minutos
+    }
+
+    // Cambiar el comportamiento del interruptor (ejemplo: apagar la alarma) con el switch 4
+    if (switches & 0x08 && alarm_triggered) {
+        alarm_triggered = 0; // Apagar la alarma
+    }
+}
+
+/******************************************************************************
+ * Función para actualizar los displays de 7 segmentos.
+ * Esta función actualiza los 6 displays de 7 segmentos con la hora actual
+ * y la hora de la alarma, utilizando multiplexado para mostrar todos los valores.
+ ******************************************************************************/
+void update_displays() {
+    int display_selectors[] = {DISPLAY1, DISPLAY2, DISPLAY3, DISPLAY4, DISPLAY5, DISPLAY6};
+    int display_values[] = {current_hour, current_minute / 10, current_minute % 10, alarm_hour, alarm_minute / 10, alarm_minute % 10};
+
+    for (int i = 0; i < 6; i++) {
+        int segments = 0;
+        int value = display_values[i];
+
+        // Convertir el valor a segmentos de 7 segmentos
+        switch (value) {
+            case 0: segments = SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F; break;
+            case 1: segments = SEG_B | SEG_C; break;
+            case 2: segments = SEG_A | SEG_B | SEG_D | SEG_E | SEG_G; break;
+            case 3: segments = SEG_A | SEG_B | SEG_C | SEG_D | SEG_G; break;
+            case 4: segments = SEG_B | SEG_C | SEG_F | SEG_G; break;
+            case 5: segments = SEG_A | SEG_C | SEG_D | SEG_F | SEG_G; break;
+            case 6: segments = SEG_A | SEG_C | SEG_D | SEG_E | SEG_F | SEG_G; break;
+            case 7: segments = SEG_A | SEG_B | SEG_C; break;
+            case 8: segments = SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F | SEG_G; break;
+            case 9: segments = SEG_A | SEG_B | SEG_C | SEG_D | SEG_F | SEG_G; break;
+        }
+
+        // Enviar los segmentos y seleccionar el display correspondiente
+        IOWR_ALTERA_AVALON_PIO_DATA(PIO_SEGMENTS_BASE, segments);
+        IOWR_ALTERA_AVALON_PIO_DATA(PIO_DISPLAYS_BASE, display_selectors[i]);
+        usleep(1000);  // Pequeña pausa para el multiplexado
+    }
+}
+
+/******************************************************************************
+ * Función principal del programa.
+ * Inicializa el temporizador y entra en el bucle principal donde maneja
+ * botones y switches, actualiza los displays y maneja la alarma.
+ ******************************************************************************/
+int main() {
+    // Inicializar el temporizador
+    init_timer();
+
+    // Bucle principal
+    while (1) {
+        // Manejar botones y switches
+        handle_buttons();
+        handle_switches();
+
+        // Actualizar displays
+        update_displays();
+
+        // Si la alarma está activada y se ha disparado, realizar una acción (por ejemplo, encender un LED o buzzer)
+        if (alarm_triggered) {
+            // Aquí podrías activar un buzzer o LED para la alarma
+        }
+    }
+
+    return 0;
+}

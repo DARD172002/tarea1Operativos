@@ -4,7 +4,17 @@
 
 `timescale 1 ps / 1 ps
 module tarea1 (
-		input  wire  clk_clk  // clk.clk
+		input  wire [3:0] botones_external_export, // botones_external.export
+		output wire       buzzer_external_export,  //  buzzer_external.export
+		input  wire       clk_clk,                 //              clk.clk
+		output wire [2:0] led_external_export,     //     led_external.export
+		output wire [6:0] seg0_external_export,    //    seg0_external.export
+		output wire [6:0] seg1_external_export,    //    seg1_external.export
+		output wire [6:0] seg2_external_export,    //    seg2_external.export
+		output wire [6:0] seg3_external_export,    //    seg3_external.export
+		output wire [6:0] seg4_external_export,    //    seg4_external.export
+		output wire [6:0] seg5_external_export,    //    seg5_external.export
+		input  wire [3:0] swtich_external_export   //  swtich_external.export
 	);
 
 	wire         nios2_gen2_0_debug_reset_request_reset;                      // nios2_gen2_0:debug_reset_request -> rst_controller:reset_in0
@@ -49,11 +59,11 @@ module tarea1 (
 	wire   [1:0] mm_interconnect_0_buzzer_s1_address;                         // mm_interconnect_0:Buzzer_s1_address -> Buzzer:address
 	wire         mm_interconnect_0_buzzer_s1_write;                           // mm_interconnect_0:Buzzer_s1_write -> Buzzer:write_n
 	wire  [31:0] mm_interconnect_0_buzzer_s1_writedata;                       // mm_interconnect_0:Buzzer_s1_writedata -> Buzzer:writedata
-	wire         mm_interconnect_0_sevensegmentos_s1_chipselect;              // mm_interconnect_0:sevenSegmentos_s1_chipselect -> sevenSegmentos:chipselect
-	wire  [31:0] mm_interconnect_0_sevensegmentos_s1_readdata;                // sevenSegmentos:readdata -> mm_interconnect_0:sevenSegmentos_s1_readdata
-	wire   [1:0] mm_interconnect_0_sevensegmentos_s1_address;                 // mm_interconnect_0:sevenSegmentos_s1_address -> sevenSegmentos:address
-	wire         mm_interconnect_0_sevensegmentos_s1_write;                   // mm_interconnect_0:sevenSegmentos_s1_write -> sevenSegmentos:write_n
-	wire  [31:0] mm_interconnect_0_sevensegmentos_s1_writedata;               // mm_interconnect_0:sevenSegmentos_s1_writedata -> sevenSegmentos:writedata
+	wire         mm_interconnect_0_seg0_s1_chipselect;                        // mm_interconnect_0:seg0_s1_chipselect -> seg0:chipselect
+	wire  [31:0] mm_interconnect_0_seg0_s1_readdata;                          // seg0:readdata -> mm_interconnect_0:seg0_s1_readdata
+	wire   [1:0] mm_interconnect_0_seg0_s1_address;                           // mm_interconnect_0:seg0_s1_address -> seg0:address
+	wire         mm_interconnect_0_seg0_s1_write;                             // mm_interconnect_0:seg0_s1_write -> seg0:write_n
+	wire  [31:0] mm_interconnect_0_seg0_s1_writedata;                         // mm_interconnect_0:seg0_s1_writedata -> seg0:writedata
 	wire         mm_interconnect_0_led_s1_chipselect;                         // mm_interconnect_0:led_s1_chipselect -> led:chipselect
 	wire  [31:0] mm_interconnect_0_led_s1_readdata;                           // led:readdata -> mm_interconnect_0:led_s1_readdata
 	wire   [1:0] mm_interconnect_0_led_s1_address;                            // mm_interconnect_0:led_s1_address -> led:address
@@ -66,10 +76,37 @@ module tarea1 (
 	wire   [2:0] mm_interconnect_0_alarma_s1_address;                         // mm_interconnect_0:alarma_s1_address -> alarma:address
 	wire         mm_interconnect_0_alarma_s1_write;                           // mm_interconnect_0:alarma_s1_write -> alarma:write_n
 	wire  [15:0] mm_interconnect_0_alarma_s1_writedata;                       // mm_interconnect_0:alarma_s1_writedata -> alarma:writedata
+	wire  [31:0] mm_interconnect_0_switch_s1_readdata;                        // switch:readdata -> mm_interconnect_0:switch_s1_readdata
+	wire   [1:0] mm_interconnect_0_switch_s1_address;                         // mm_interconnect_0:switch_s1_address -> switch:address
+	wire         mm_interconnect_0_seg2_s1_chipselect;                        // mm_interconnect_0:seg2_s1_chipselect -> seg2:chipselect
+	wire  [31:0] mm_interconnect_0_seg2_s1_readdata;                          // seg2:readdata -> mm_interconnect_0:seg2_s1_readdata
+	wire   [1:0] mm_interconnect_0_seg2_s1_address;                           // mm_interconnect_0:seg2_s1_address -> seg2:address
+	wire         mm_interconnect_0_seg2_s1_write;                             // mm_interconnect_0:seg2_s1_write -> seg2:write_n
+	wire  [31:0] mm_interconnect_0_seg2_s1_writedata;                         // mm_interconnect_0:seg2_s1_writedata -> seg2:writedata
+	wire         mm_interconnect_0_seg1_s1_chipselect;                        // mm_interconnect_0:seg1_s1_chipselect -> seg1:chipselect
+	wire  [31:0] mm_interconnect_0_seg1_s1_readdata;                          // seg1:readdata -> mm_interconnect_0:seg1_s1_readdata
+	wire   [1:0] mm_interconnect_0_seg1_s1_address;                           // mm_interconnect_0:seg1_s1_address -> seg1:address
+	wire         mm_interconnect_0_seg1_s1_write;                             // mm_interconnect_0:seg1_s1_write -> seg1:write_n
+	wire  [31:0] mm_interconnect_0_seg1_s1_writedata;                         // mm_interconnect_0:seg1_s1_writedata -> seg1:writedata
+	wire         mm_interconnect_0_seg4_s1_chipselect;                        // mm_interconnect_0:seg4_s1_chipselect -> seg4:chipselect
+	wire  [31:0] mm_interconnect_0_seg4_s1_readdata;                          // seg4:readdata -> mm_interconnect_0:seg4_s1_readdata
+	wire   [1:0] mm_interconnect_0_seg4_s1_address;                           // mm_interconnect_0:seg4_s1_address -> seg4:address
+	wire         mm_interconnect_0_seg4_s1_write;                             // mm_interconnect_0:seg4_s1_write -> seg4:write_n
+	wire  [31:0] mm_interconnect_0_seg4_s1_writedata;                         // mm_interconnect_0:seg4_s1_writedata -> seg4:writedata
+	wire         mm_interconnect_0_seg5_s1_chipselect;                        // mm_interconnect_0:seg5_s1_chipselect -> seg5:chipselect
+	wire  [31:0] mm_interconnect_0_seg5_s1_readdata;                          // seg5:readdata -> mm_interconnect_0:seg5_s1_readdata
+	wire   [1:0] mm_interconnect_0_seg5_s1_address;                           // mm_interconnect_0:seg5_s1_address -> seg5:address
+	wire         mm_interconnect_0_seg5_s1_write;                             // mm_interconnect_0:seg5_s1_write -> seg5:write_n
+	wire  [31:0] mm_interconnect_0_seg5_s1_writedata;                         // mm_interconnect_0:seg5_s1_writedata -> seg5:writedata
+	wire         mm_interconnect_0_seg3_s1_chipselect;                        // mm_interconnect_0:seg3_s1_chipselect -> seg3:chipselect
+	wire  [31:0] mm_interconnect_0_seg3_s1_readdata;                          // seg3:readdata -> mm_interconnect_0:seg3_s1_readdata
+	wire   [1:0] mm_interconnect_0_seg3_s1_address;                           // mm_interconnect_0:seg3_s1_address -> seg3:address
+	wire         mm_interconnect_0_seg3_s1_write;                             // mm_interconnect_0:seg3_s1_write -> seg3:write_n
+	wire  [31:0] mm_interconnect_0_seg3_s1_writedata;                         // mm_interconnect_0:seg3_s1_writedata -> seg3:writedata
 	wire         irq_mapper_receiver0_irq;                                    // alarma:irq -> irq_mapper:receiver0_irq
 	wire         irq_mapper_receiver1_irq;                                    // jtag_uart_0:av_irq -> irq_mapper:receiver1_irq
 	wire  [31:0] nios2_gen2_0_irq_irq;                                        // irq_mapper:sender_irq -> nios2_gen2_0:irq
-	wire         rst_controller_reset_out_reset;                              // rst_controller:reset_out -> [Buzzer:reset_n, alarma:reset_n, botones:reset_n, irq_mapper:reset, jtag_uart_0:rst_n, led:reset_n, mm_interconnect_0:nios2_gen2_0_reset_reset_bridge_in_reset_reset, nios2_gen2_0:reset_n, onchip_memory2_0:reset, rst_translator:in_reset, sevenSegmentos:reset_n]
+	wire         rst_controller_reset_out_reset;                              // rst_controller:reset_out -> [Buzzer:reset_n, alarma:reset_n, botones:reset_n, irq_mapper:reset, jtag_uart_0:rst_n, led:reset_n, mm_interconnect_0:nios2_gen2_0_reset_reset_bridge_in_reset_reset, nios2_gen2_0:reset_n, onchip_memory2_0:reset, rst_translator:in_reset, seg0:reset_n, seg1:reset_n, seg2:reset_n, seg3:reset_n, seg4:reset_n, seg5:reset_n, switch:reset_n]
 	wire         rst_controller_reset_out_reset_req;                          // rst_controller:reset_req -> [nios2_gen2_0:reset_req, onchip_memory2_0:reset_req, rst_translator:reset_req_in]
 
 	tarea1_Buzzer buzzer (
@@ -80,7 +117,7 @@ module tarea1 (
 		.writedata  (mm_interconnect_0_buzzer_s1_writedata),  //                    .writedata
 		.chipselect (mm_interconnect_0_buzzer_s1_chipselect), //                    .chipselect
 		.readdata   (mm_interconnect_0_buzzer_s1_readdata),   //                    .readdata
-		.out_port   ()                                        // external_connection.export
+		.out_port   (buzzer_external_export)                  // external_connection.export
 	);
 
 	tarea1_alarma alarma (
@@ -99,7 +136,7 @@ module tarea1 (
 		.reset_n  (~rst_controller_reset_out_reset),       //               reset.reset_n
 		.address  (mm_interconnect_0_botones_s1_address),  //                  s1.address
 		.readdata (mm_interconnect_0_botones_s1_readdata), //                    .readdata
-		.in_port  ()                                       // external_connection.export
+		.in_port  (botones_external_export)                // external_connection.export
 	);
 
 	tarea1_jtag_uart_0 jtag_uart_0 (
@@ -123,7 +160,7 @@ module tarea1 (
 		.writedata  (mm_interconnect_0_led_s1_writedata),  //                    .writedata
 		.chipselect (mm_interconnect_0_led_s1_chipselect), //                    .chipselect
 		.readdata   (mm_interconnect_0_led_s1_readdata),   //                    .readdata
-		.out_port   ()                                     // external_connection.export
+		.out_port   (led_external_export)                  // external_connection.export
 	);
 
 	tarea1_nios2_gen2_0 nios2_gen2_0 (
@@ -171,15 +208,78 @@ module tarea1 (
 		.freeze     (1'b0)                                              // (terminated)
 	);
 
-	tarea1_led sevensegmentos (
-		.clk        (clk_clk),                                        //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),                //               reset.reset_n
-		.address    (mm_interconnect_0_sevensegmentos_s1_address),    //                  s1.address
-		.write_n    (~mm_interconnect_0_sevensegmentos_s1_write),     //                    .write_n
-		.writedata  (mm_interconnect_0_sevensegmentos_s1_writedata),  //                    .writedata
-		.chipselect (mm_interconnect_0_sevensegmentos_s1_chipselect), //                    .chipselect
-		.readdata   (mm_interconnect_0_sevensegmentos_s1_readdata),   //                    .readdata
-		.out_port   ()                                                // external_connection.export
+	tarea1_seg0 seg0 (
+		.clk        (clk_clk),                              //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),      //               reset.reset_n
+		.address    (mm_interconnect_0_seg0_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_seg0_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_seg0_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_seg0_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_seg0_s1_readdata),   //                    .readdata
+		.out_port   (seg0_external_export)                  // external_connection.export
+	);
+
+	tarea1_seg0 seg1 (
+		.clk        (clk_clk),                              //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),      //               reset.reset_n
+		.address    (mm_interconnect_0_seg1_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_seg1_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_seg1_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_seg1_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_seg1_s1_readdata),   //                    .readdata
+		.out_port   (seg1_external_export)                  // external_connection.export
+	);
+
+	tarea1_seg0 seg2 (
+		.clk        (clk_clk),                              //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),      //               reset.reset_n
+		.address    (mm_interconnect_0_seg2_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_seg2_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_seg2_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_seg2_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_seg2_s1_readdata),   //                    .readdata
+		.out_port   (seg2_external_export)                  // external_connection.export
+	);
+
+	tarea1_seg0 seg3 (
+		.clk        (clk_clk),                              //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),      //               reset.reset_n
+		.address    (mm_interconnect_0_seg3_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_seg3_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_seg3_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_seg3_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_seg3_s1_readdata),   //                    .readdata
+		.out_port   (seg3_external_export)                  // external_connection.export
+	);
+
+	tarea1_seg0 seg4 (
+		.clk        (clk_clk),                              //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),      //               reset.reset_n
+		.address    (mm_interconnect_0_seg4_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_seg4_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_seg4_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_seg4_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_seg4_s1_readdata),   //                    .readdata
+		.out_port   (seg4_external_export)                  // external_connection.export
+	);
+
+	tarea1_seg0 seg5 (
+		.clk        (clk_clk),                              //                 clk.clk
+		.reset_n    (~rst_controller_reset_out_reset),      //               reset.reset_n
+		.address    (mm_interconnect_0_seg5_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_seg5_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_seg5_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_seg5_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_seg5_s1_readdata),   //                    .readdata
+		.out_port   (seg5_external_export)                  // external_connection.export
+	);
+
+	tarea1_botones switch (
+		.clk      (clk_clk),                              //                 clk.clk
+		.reset_n  (~rst_controller_reset_out_reset),      //               reset.reset_n
+		.address  (mm_interconnect_0_switch_s1_address),  //                  s1.address
+		.readdata (mm_interconnect_0_switch_s1_readdata), //                    .readdata
+		.in_port  (swtich_external_export)                // external_connection.export
 	);
 
 	tarea1_mm_interconnect_0 mm_interconnect_0 (
@@ -238,11 +338,38 @@ module tarea1 (
 		.onchip_memory2_0_s1_byteenable                 (mm_interconnect_0_onchip_memory2_0_s1_byteenable),            //                                         .byteenable
 		.onchip_memory2_0_s1_chipselect                 (mm_interconnect_0_onchip_memory2_0_s1_chipselect),            //                                         .chipselect
 		.onchip_memory2_0_s1_clken                      (mm_interconnect_0_onchip_memory2_0_s1_clken),                 //                                         .clken
-		.sevenSegmentos_s1_address                      (mm_interconnect_0_sevensegmentos_s1_address),                 //                        sevenSegmentos_s1.address
-		.sevenSegmentos_s1_write                        (mm_interconnect_0_sevensegmentos_s1_write),                   //                                         .write
-		.sevenSegmentos_s1_readdata                     (mm_interconnect_0_sevensegmentos_s1_readdata),                //                                         .readdata
-		.sevenSegmentos_s1_writedata                    (mm_interconnect_0_sevensegmentos_s1_writedata),               //                                         .writedata
-		.sevenSegmentos_s1_chipselect                   (mm_interconnect_0_sevensegmentos_s1_chipselect)               //                                         .chipselect
+		.seg0_s1_address                                (mm_interconnect_0_seg0_s1_address),                           //                                  seg0_s1.address
+		.seg0_s1_write                                  (mm_interconnect_0_seg0_s1_write),                             //                                         .write
+		.seg0_s1_readdata                               (mm_interconnect_0_seg0_s1_readdata),                          //                                         .readdata
+		.seg0_s1_writedata                              (mm_interconnect_0_seg0_s1_writedata),                         //                                         .writedata
+		.seg0_s1_chipselect                             (mm_interconnect_0_seg0_s1_chipselect),                        //                                         .chipselect
+		.seg1_s1_address                                (mm_interconnect_0_seg1_s1_address),                           //                                  seg1_s1.address
+		.seg1_s1_write                                  (mm_interconnect_0_seg1_s1_write),                             //                                         .write
+		.seg1_s1_readdata                               (mm_interconnect_0_seg1_s1_readdata),                          //                                         .readdata
+		.seg1_s1_writedata                              (mm_interconnect_0_seg1_s1_writedata),                         //                                         .writedata
+		.seg1_s1_chipselect                             (mm_interconnect_0_seg1_s1_chipselect),                        //                                         .chipselect
+		.seg2_s1_address                                (mm_interconnect_0_seg2_s1_address),                           //                                  seg2_s1.address
+		.seg2_s1_write                                  (mm_interconnect_0_seg2_s1_write),                             //                                         .write
+		.seg2_s1_readdata                               (mm_interconnect_0_seg2_s1_readdata),                          //                                         .readdata
+		.seg2_s1_writedata                              (mm_interconnect_0_seg2_s1_writedata),                         //                                         .writedata
+		.seg2_s1_chipselect                             (mm_interconnect_0_seg2_s1_chipselect),                        //                                         .chipselect
+		.seg3_s1_address                                (mm_interconnect_0_seg3_s1_address),                           //                                  seg3_s1.address
+		.seg3_s1_write                                  (mm_interconnect_0_seg3_s1_write),                             //                                         .write
+		.seg3_s1_readdata                               (mm_interconnect_0_seg3_s1_readdata),                          //                                         .readdata
+		.seg3_s1_writedata                              (mm_interconnect_0_seg3_s1_writedata),                         //                                         .writedata
+		.seg3_s1_chipselect                             (mm_interconnect_0_seg3_s1_chipselect),                        //                                         .chipselect
+		.seg4_s1_address                                (mm_interconnect_0_seg4_s1_address),                           //                                  seg4_s1.address
+		.seg4_s1_write                                  (mm_interconnect_0_seg4_s1_write),                             //                                         .write
+		.seg4_s1_readdata                               (mm_interconnect_0_seg4_s1_readdata),                          //                                         .readdata
+		.seg4_s1_writedata                              (mm_interconnect_0_seg4_s1_writedata),                         //                                         .writedata
+		.seg4_s1_chipselect                             (mm_interconnect_0_seg4_s1_chipselect),                        //                                         .chipselect
+		.seg5_s1_address                                (mm_interconnect_0_seg5_s1_address),                           //                                  seg5_s1.address
+		.seg5_s1_write                                  (mm_interconnect_0_seg5_s1_write),                             //                                         .write
+		.seg5_s1_readdata                               (mm_interconnect_0_seg5_s1_readdata),                          //                                         .readdata
+		.seg5_s1_writedata                              (mm_interconnect_0_seg5_s1_writedata),                         //                                         .writedata
+		.seg5_s1_chipselect                             (mm_interconnect_0_seg5_s1_chipselect),                        //                                         .chipselect
+		.switch_s1_address                              (mm_interconnect_0_switch_s1_address),                         //                                switch_s1.address
+		.switch_s1_readdata                             (mm_interconnect_0_switch_s1_readdata)                         //                                         .readdata
 	);
 
 	tarea1_irq_mapper irq_mapper (

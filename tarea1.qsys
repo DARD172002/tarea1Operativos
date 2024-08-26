@@ -6,7 +6,7 @@
    version="1.0"
    description=""
    tags=""
-   categories="" />
+   categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
    element Buzzer
@@ -21,7 +21,7 @@
    {
       datum baseAddress
       {
-         value = "12336";
+         value = "12448";
          type = "String";
       }
    }
@@ -31,6 +31,14 @@
       {
          value = "8";
          type = "int";
+      }
+   }
+   element alarma.s1
+   {
+      datum baseAddress
+      {
+         value = "12288";
+         type = "String";
       }
    }
    element botones
@@ -45,7 +53,7 @@
    {
       datum baseAddress
       {
-         value = "12288";
+         value = "12400";
          type = "String";
       }
    }
@@ -69,7 +77,7 @@
    {
       datum baseAddress
       {
-         value = "12352";
+         value = "12464";
          type = "String";
       }
    }
@@ -85,7 +93,7 @@
    {
       datum baseAddress
       {
-         value = "12304";
+         value = "12416";
          type = "String";
       }
    }
@@ -121,7 +129,7 @@
          type = "String";
       }
    }
-   element sevenSegmentos
+   element seg0
    {
       datum _sortIndex
       {
@@ -129,11 +137,99 @@
          type = "int";
       }
    }
-   element sevenSegmentos.s1
+   element seg0.s1
+   {
+      datum baseAddress
+      {
+         value = "12432";
+         type = "String";
+      }
+   }
+   element seg1
+   {
+      datum _sortIndex
+      {
+         value = "10";
+         type = "int";
+      }
+   }
+   element seg1.s1
+   {
+      datum baseAddress
+      {
+         value = "12352";
+         type = "String";
+      }
+   }
+   element seg2
+   {
+      datum _sortIndex
+      {
+         value = "11";
+         type = "int";
+      }
+   }
+   element seg2.s1
+   {
+      datum baseAddress
+      {
+         value = "12368";
+         type = "String";
+      }
+   }
+   element seg3
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
+   element seg4
+   {
+      datum _sortIndex
+      {
+         value = "13";
+         type = "int";
+      }
+   }
+   element seg4.s1
+   {
+      datum baseAddress
+      {
+         value = "12336";
+         type = "String";
+      }
+   }
+   element seg5
+   {
+      datum _sortIndex
+      {
+         value = "14";
+         type = "int";
+      }
+   }
+   element seg5.s1
    {
       datum baseAddress
       {
          value = "12320";
+         type = "String";
+      }
+   }
+   element switch
+   {
+      datum _sortIndex
+      {
+         value = "9";
+         type = "int";
+      }
+   }
+   element switch.s1
+   {
+      datum baseAddress
+      {
+         value = "12384";
          type = "String";
       }
    }
@@ -151,14 +247,64 @@
  <parameter name="hideFromIPCatalog" value="false" />
  <parameter name="lockedInterfaceDefinition" value="" />
  <parameter name="maxAdditionalLatency" value="1" />
- <parameter name="projectName" value="" />
+ <parameter name="projectName" value="tarea1.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
  <parameter name="testBenchDutName" value="" />
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
+ <interface
+   name="botones_external"
+   internal="botones.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="buzzer_external"
+   internal="Buzzer.external_connection"
+   type="conduit"
+   dir="end" />
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
+ <interface
+   name="led_external"
+   internal="led.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="seg0_external"
+   internal="seg0.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="seg1_external"
+   internal="seg1.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="seg2_external"
+   internal="seg2.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="seg3_external"
+   internal="seg3.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="seg4_external"
+   internal="seg4.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="seg5_external"
+   internal="seg5.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="swtich_external"
+   internal="switch.external_connection"
+   type="conduit"
+   dir="end" />
  <module name="Buzzer" kind="altera_avalon_pio" version="18.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -236,7 +382,7 @@
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="8" />
+  <parameter name="width" value="3" />
  </module>
  <module
    name="nios2_gen2_0"
@@ -262,7 +408,7 @@
   <parameter name="dataAddrWidth" value="14" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='alarma.s1' start='0x0' end='0x20' type='altera_avalon_timer.s1' /><slave name='onchip_memory2_0.s1' start='0x1000' end='0x2000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x2800' end='0x3000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='botones.s1' start='0x3000' end='0x3010' type='altera_avalon_pio.s1' /><slave name='led.s1' start='0x3010' end='0x3020' type='altera_avalon_pio.s1' /><slave name='sevenSegmentos.s1' start='0x3020' end='0x3030' type='altera_avalon_pio.s1' /><slave name='Buzzer.s1' start='0x3030' end='0x3040' type='altera_avalon_pio.s1' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x3040' end='0x3048' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x1000' end='0x2000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x2800' end='0x3000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='alarma.s1' start='0x3000' end='0x3020' type='altera_avalon_timer.s1' /><slave name='seg5.s1' start='0x3020' end='0x3030' type='altera_avalon_pio.s1' /><slave name='seg4.s1' start='0x3030' end='0x3040' type='altera_avalon_pio.s1' /><slave name='seg1.s1' start='0x3040' end='0x3050' type='altera_avalon_pio.s1' /><slave name='seg2.s1' start='0x3050' end='0x3060' type='altera_avalon_pio.s1' /><slave name='switch.s1' start='0x3060' end='0x3070' type='altera_avalon_pio.s1' /><slave name='botones.s1' start='0x3070' end='0x3080' type='altera_avalon_pio.s1' /><slave name='led.s1' start='0x3080' end='0x3090' type='altera_avalon_pio.s1' /><slave name='seg0.s1' start='0x3090' end='0x30A0' type='altera_avalon_pio.s1' /><slave name='Buzzer.s1' start='0x30A0' end='0x30B0' type='altera_avalon_pio.s1' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x30B0' end='0x30B8' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -301,7 +447,7 @@
   <parameter name="icache_tagramBlockType" value="Automatic" />
   <parameter name="impl" value="Fast" />
   <parameter name="instAddrWidth" value="14" />
-  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x1000' end='0x2000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x2800' end='0x3000' type='altera_nios2_gen2.debug_mem_slave' /></address-map>]]></parameter>
+  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='seg3.s1' start='0x0' end='0x10' type='altera_avalon_pio.s1' /><slave name='onchip_memory2_0.s1' start='0x1000' end='0x2000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x2800' end='0x3000' type='altera_nios2_gen2.debug_mem_slave' /></address-map>]]></parameter>
   <parameter name="instructionMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="instructionMasterHighPerformanceMapParam" value="" />
   <parameter name="instruction_master_high_performance_paddr_base" value="0" />
@@ -452,11 +598,7 @@
   <parameter name="useShallowMemBlocks" value="false" />
   <parameter name="writable" value="true" />
  </module>
- <module
-   name="sevenSegmentos"
-   kind="altera_avalon_pio"
-   version="18.1"
-   enabled="1">
+ <module name="seg0" kind="altera_avalon_pio" version="18.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -468,7 +610,91 @@
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="8" />
+  <parameter name="width" value="7" />
+ </module>
+ <module name="seg1" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="7" />
+ </module>
+ <module name="seg2" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="7" />
+ </module>
+ <module name="seg3" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="7" />
+ </module>
+ <module name="seg4" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="7" />
+ </module>
+ <module name="seg5" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="7" />
+ </module>
+ <module name="switch" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Input" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="4" />
  </module>
  <connection
    kind="avalon"
@@ -476,7 +702,7 @@
    start="nios2_gen2_0.data_master"
    end="jtag_uart_0.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x3040" />
+  <parameter name="baseAddress" value="0x30b0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -503,16 +729,16 @@
    start="nios2_gen2_0.data_master"
    end="Buzzer.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x3030" />
+  <parameter name="baseAddress" value="0x30a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
    version="18.1"
    start="nios2_gen2_0.data_master"
-   end="sevenSegmentos.s1">
+   end="seg0.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x3020" />
+  <parameter name="baseAddress" value="0x3090" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -521,7 +747,7 @@
    start="nios2_gen2_0.data_master"
    end="led.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x3010" />
+  <parameter name="baseAddress" value="0x3080" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -530,7 +756,7 @@
    start="nios2_gen2_0.data_master"
    end="botones.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x3000" />
+  <parameter name="baseAddress" value="0x3070" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -539,7 +765,52 @@
    start="nios2_gen2_0.data_master"
    end="alarma.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="baseAddress" value="0x3000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="switch.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x3060" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="seg2.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x3050" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="seg1.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x3040" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="seg4.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x3030" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="seg5.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x3020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -560,17 +831,28 @@
   <parameter name="baseAddress" value="0x1000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.instruction_master"
+   end="seg3.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
  <connection kind="clock" version="18.1" start="clk_0.clk" end="nios2_gen2_0.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="jtag_uart_0.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="Buzzer.clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_0.clk"
-   end="sevenSegmentos.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="seg0.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="led.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="botones.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="alarma.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="switch.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="seg4.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="seg3.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="seg2.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="seg1.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="seg5.clk" />
  <connection
    kind="clock"
    version="18.1"
@@ -605,11 +887,7 @@
    version="18.1"
    start="clk_0.clk_reset"
    end="Buzzer.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="sevenSegmentos.reset" />
+ <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="seg0.reset" />
  <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="led.reset" />
  <connection
    kind="reset"
@@ -621,6 +899,16 @@
    version="18.1"
    start="clk_0.clk_reset"
    end="alarma.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_0.clk_reset"
+   end="switch.reset" />
+ <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="seg4.reset" />
+ <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="seg3.reset" />
+ <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="seg2.reset" />
+ <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="seg1.reset" />
+ <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="seg5.reset" />
  <connection
    kind="reset"
    version="18.1"
